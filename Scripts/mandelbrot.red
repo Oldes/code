@@ -51,6 +51,7 @@ mandelbrot: function [img xmin xmax ymin ymax iterations][
 			pix: skip pix 3
 			ix: ix + 1
 		]
+		unless img/state [exit]
 		img/image/rgb: head pix
  		show img
  		do-events/no-wait								;-- allow GUI msgs to be processed
@@ -76,7 +77,7 @@ view [
 		mandelbrot img xmin/data xmax/data ymin/data ymax/data iterations/data
 		dt/data: round now/time/precise - t0
 	]
-	txt "time (s):" dt: txt 100
-	return
+	across txt "time (s):" dt: txt
+	below return
 	img: image 900x600
 ]
