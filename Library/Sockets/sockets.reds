@@ -93,6 +93,15 @@ sockets: context [
 		#either OS = 'Windows [WSAGetLastError][error]
 	]
 
+	host-to-ip: func[
+		host     [c-string!]
+		return:  [ip-address!]
+		/local h [hostent!]
+	][
+		h: gethostbyname host
+		h/list/ips/1
+	]
+
 	dispose: does[
 		#if OS = 'Windows [
 			WSACleanup
