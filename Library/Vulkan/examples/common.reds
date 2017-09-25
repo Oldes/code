@@ -13,14 +13,16 @@ Red/System [
 
 
 ;-- global variables!
-window:   declare GLFWwindow!
+window: declare GLFWwindow!
+window: null
 instance: 0
-appInfo:  declare VkApplicationInfo!
+appInfo: declare VkApplicationInfo!
 ;-----------
 
 
 VK-init: func[][
 	if GLFW_TRUE <> glfwInit [print-line "Failed to initialize GLFW library!" quit -1]
+    if GLFW_TRUE <> glfwVulkanSupported [print-line "Vulkan seems not to be supported on this system!" quit -1]
 ]
 
 VK-window: func[
@@ -30,7 +32,7 @@ VK-window: func[
 	return: [GLFWwindow!]
 ][
 	glfwWindowHint GLFW_CLIENT_API GLFW_NO_API
-	glfwWindowHint GLFW_RESIZABLE GLFW_FALSE
+	glfwWindowHint GLFW_RESIZABLE  GLFW_FALSE
 
 	window: glfwCreateWindow width height title NULL NULL
 
@@ -47,7 +49,7 @@ VK-window: func[
 
 VK-close: func[][
 	vkDestroyInstance instance null
-	glfwDestroyWindow window   
+	if null <> window [glfwDestroyWindow window ] 
 	glfwTerminate
 ]
 
@@ -68,10 +70,10 @@ VK-instance: func[
     num: 0
     extensions: glfwGetRequiredInstanceExtensions :num
 
-    print-line ["Vulkan extensions: " num]
+    print-line ["Required Vulkan extensions: " num]
     i: 0 p: as int-ptr! extensions
     while [i < num] [
-    	ext: as string-ref! p
+    	ext: as string-ptr! p
     	i: i + 1
     	p: p + 1
     	print-line [#" " i ".^-" ext/value]

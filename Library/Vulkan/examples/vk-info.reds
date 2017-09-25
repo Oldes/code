@@ -11,16 +11,10 @@ Red/System [
 
 VK-init
 
-VK-window "Vulkan" 800 600
-
-glfwMakeContextCurrent window
+;VK-window "Vulkan" 800 600
+;glfwMakeContextCurrent window
 
 VK-instance
-
-
-
-
-
 
 ;no main loop in this example
 
