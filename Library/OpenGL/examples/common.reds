@@ -25,7 +25,7 @@ on-resize: func [
 	width  [integer!]
 	height [integer!]
 ][
-	print-line ["resize: " width #"x" height]
+	;print-line ["resize: " width #"x" height]
 	glViewport 0 0 width height
 	render-scene ;redraw the scene
 ]
