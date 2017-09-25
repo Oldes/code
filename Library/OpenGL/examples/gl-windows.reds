@@ -36,7 +36,7 @@ while [i < 4] [
 
 running: true
 
-while [running][
+render-scene: does[
 	i: 0
 	while [i < 4][
 		i: i + 1 
@@ -46,6 +46,10 @@ while [running][
 		glfwSwapBuffers window
 		if GL_TRUE = glfwWindowShouldClose window [running: false] ; Closing any window quits app    
 	]
+]
+
+while [running][
+	render-scene
 	glfwPollEvents
 ]
 
